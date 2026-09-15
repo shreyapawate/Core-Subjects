@@ -286,3 +286,125 @@ Student::display();
 
 ```
 ```
+````markdown id="k7m24"
+## 5. Static Members
+
+### Static Member Variable
+
+- Belongs to the **class**, not individual objects.
+- Only **one copy** is shared among all objects.
+- Traditionally, it is **defined outside the class** to allocate storage.
+
+```cpp
+class Student {
+public:
+    static int count;
+};
+
+int Student::count = 0;
+````
+
+### Access
+
+Preferred:
+
+```cpp
+Student::count;
+```
+
+Can also be accessed through an object:
+
+```cpp
+Student s;
+s.count;
+```
+
+### Static Member Function
+
+* Declared using the `static` keyword.
+* Can be called **without creating an object**.
+* Called using `ClassName::function()`.
+* Can directly access **only static members**.
+
+```cpp
+class Student {
+    static int count;
+
+public:
+    static void setCount(int c) {
+        count = c;
+    }
+};
+
+int Student::count = 0;
+
+Student::setCount(10);
+```
+
+### Important Points ⭐
+
+* Static variable → **one copy per class**.
+* Static function → belongs to the **class**, not an object.
+* Static function has **no `this` pointer**.
+* Static function cannot directly access non-static members.
+* Static members can be accessed using `ClassName::member`.
+* Static functions are useful when an operation is required **without an object**.
+
+## 6. Constructors
+
+### Definition
+
+A **constructor** is a special member function used to **initialize an object**.
+
+```cpp
+class Student {
+    int age;
+
+public:
+    Student() {
+        age = 20;
+    }
+};
+```
+
+### Characteristics
+
+* Name must be **same as the class name**.
+* Has **no return type**, not even `void`.
+* Called **automatically** when an object is created.
+* Called once for **each object**.
+* Cannot be declared `static`.
+* Used to initialize an object's data members.
+
+```cpp
+Student s1;   // Constructor called
+Student s2;   // Constructor called again
+```
+
+### Why Constructors?
+
+* Fundamental-type data members may contain **indeterminate values** if not initialized.
+* Constructor ensures the object starts with a **proper initial state**.
+
+### Important Points ⭐
+
+* Constructor is called **automatically** during object creation.
+* Constructors **can be overloaded**.
+* Constructor cannot have a return type.
+* Constructor cannot be `static`.
+* Constructor executes after the object's storage has been obtained and as part of object initialization.
+* Prefer **member initializer lists** for initialization:
+
+```cpp
+Student() : age(20) {}
+```
+
+### Interview Traps ⚠️
+
+* **Can constructor return a value?** → No.
+* **Can constructor be static?** → No.
+* **Can constructor be overloaded?** → Yes.
+* **When is constructor called?** → Automatically when an object is created.
+
+```
+```
