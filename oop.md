@@ -134,3 +134,155 @@ Here:
 
 ```
 ```
+````markdown
+## 3. Class, Object & OOP Terminology
+
+### Class
+- A **class** is a blueprint/description of an object.
+- It defines **data members** and **member functions**.
+
+### Object
+- An **object** is an instance of a class.
+- Each object has its own copy of **non-static data members**.
+
+```cpp
+class Student {
+    int age;
+public:
+    void setAge(int a) { age = a; }
+};
+
+Student s1, s2;   // Objects
+````
+
+### Instance Member Variables
+
+* Non-static variables declared inside a class.
+* Each object gets its **own copy**.
+* Also called **attributes, data members, or properties**.
+
+### Instance Member Functions
+
+* Non-static functions belonging to a class.
+* Operate on the data of the **object that calls them**.
+* Also called **methods, operations, or services**.
+
+### Object State
+
+* The **current values of an object's instance variables**.
+* Different objects can have different states.
+
+### Object Behavior
+
+* The **actions performed by an object through its member functions**.
+
+### Encapsulation
+
+* Bundling data and methods together and controlling access to the data.
+* Usually achieved using `private` data + `public` methods.
+
+### Important Points ⭐
+
+* **Class = Blueprint; Object = Instance**
+* Non-static data members are **object-specific**.
+* Each object has a separate copy of non-static data members.
+* Member functions can directly access the object's private data.
+* **State → data members**
+* **Behavior → member functions**
+* Encapsulation protects the object's internal state from direct external modification.
+
+## 4. Static Members
+
+### Static Local Variable
+
+* Declared inside a function using `static`.
+* Created only once and **retains its value between function calls**.
+* Default-initialized to `0` if no initializer is provided.
+* Lifetime lasts until **program termination**.
+
+```cpp
+void fun() {
+    static int x;
+    x++;
+    cout << x;
+}
+```
+
+Calling `fun()` three times:
+
+```text
+1
+2
+3
+```
+
+### Static Member Variable
+
+* Declared inside a class using `static`.
+* Also called a **class variable**.
+* Only **one shared copy** exists for the entire class.
+* Shared by all objects.
+* Exists independently of individual objects.
+
+```cpp
+class Student {
+public:
+    static int count;
+};
+
+int Student::count = 0;
+```
+
+Access:
+
+```cpp
+Student::count++;
+```
+
+### Static Member Function
+
+* Belongs to the **class**, not a particular object.
+* Can be called using the class name.
+* Can directly access **only static members**.
+
+```cpp
+class Student {
+public:
+    static int count;
+
+    static void display() {
+        cout << count;
+    }
+};
+
+int Student::count = 0;
+
+Student::display();
+```
+
+### Important Points ⭐
+
+* `static` local variable → retains value between function calls.
+* `static` member variable → **one copy shared by all objects**.
+* Static member variable must generally be **defined outside the class** before C++17 if it is odr-used.
+* Static member function has **no `this` pointer**.
+* Static member function cannot directly access non-static members.
+* Static members can be accessed using **`ClassName::member`**.
+* Static data belongs to the **class**, not individual objects.
+
+### Quick Comparison
+
+| Member              |         Copies | Belongs To | Access       |
+| ------------------- | -------------: | ---------- | ------------ |
+| Non-static variable | One per object | Object     | Object       |
+| Static variable     |  One per class | Class      | Class/Object |
+| Static function     |  One per class | Class      | Class        |
+
+### Interview Trap ⚠️
+
+> Can a static member function access a non-static variable directly?
+
+**No.** It has no specific object/`this` pointer, so it cannot directly access non-static members.
+
+```
+```
